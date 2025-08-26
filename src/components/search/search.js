@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import { AsyncPaginate } from 'react-select-async-paginate';
+import { fetchCities } from '../../api';
 
 const Search = ({ onSearchChange }) => {
   const [search, setSearch] = useState(null);
+
+  const loadOptions = async (inputValue) => {
+    return await fetchCities(inputValue);
+  };
 
   const handleOnChange = (searchData) => {
     setSearch(searchData);
@@ -15,6 +20,7 @@ const Search = ({ onSearchChange }) => {
       debounceTimeout={600}
       value={search}
       onChange={handleOnChange}
+      loadOptions={loadOptions}
     />
   );
 };
